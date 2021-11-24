@@ -49,7 +49,7 @@ rm -rf %{buildroot}%{_infodir}
 %{_bindir}/libgcrypt-config
 %{_bindir}/mpicalc
 %{_libdir}/%{name}.so.20*
-%{_mandir}/man1/hmac256.1
+%{_mandir}/man1/hmac256*
 
 %files devel
 %defattr(-,root,root)
@@ -61,7 +61,6 @@ rm -rf %{buildroot}%{_infodir}
 %changelog
 * Mon Nov 22 2021 Thomas Crain <thcrain@microsoft.com> - 1.9.4-1
 - Upgrade to latest upstream version
-- 
 - License verified
 
 * Fri Sep 10 2021 Thomas Crain <thcrain@microsoft.com> - 1.8.7-3

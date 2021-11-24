@@ -37,7 +37,7 @@ They utilize the Assuan protocol as specified in the Libassuan manual.
 %{_bindir}/pinentry
 %{_bindir}/%{name}-curses
 %{_bindir}/%{name}-tty
-%{_infodir}/%{name}.info
+%{_infodir}/%{name}.info*
 %exclude %{_infodir}/dir
 
 %changelog
