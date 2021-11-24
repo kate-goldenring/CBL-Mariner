@@ -23,7 +23,6 @@ of many transaction based environments with non-persistent servers.
 Summary:        Development files for libassuan
 Requires:       %{name} = %{version}-%{release}
 Requires:       libgpg-error-devel >= 1.21
-Provides:       pkgconfig(libassuan) = %{version}-%{release}
 
 %description    devel
 This package contains development files for libassuan
@@ -61,6 +60,7 @@ rm -rf %{buildroot}/%{_infodir}
 * Mon Nov 22 2021 Thomas Crain <thcrain@microsoft.com> - 2.5.5-1
 - Upgrade to latest upstream version
 - Split out development files into devel subpackage
+- Removal manual pkgconfig(libassuan) provide
 - Lint spec
 - License verified
 
