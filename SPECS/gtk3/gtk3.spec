@@ -72,10 +72,12 @@ Requires:       gtk-update-icon-cache
 # required for icon theme apis to work
 Requires:       hicolor-icon-theme
 Requires:       libXrandr >= %{xrandr_version}
+Requires:       colord-libs
 Requires:       libepoxy >= %{epoxy_version}
 Requires:       libwayland-client >= %{wayland_version}
 Requires:       libwayland-cursor >= %{wayland_version}
 Requires:       pango >= %{pango_version}
+
 # make sure we have a reasonable gsettings backend
 Recommends:     dconf
 Provides:       adwaita-gtk3-theme = %{version}-%{release}
