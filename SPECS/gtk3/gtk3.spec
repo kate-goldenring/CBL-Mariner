@@ -34,7 +34,7 @@ BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(atk) >= %{atk_version}
 BuildRequires:  pkgconfig(atk-bridge-2.0)
 BuildRequires:  pkgconfig(avahi-gobject)
-BuildRequires:  pkgconfig(colord)
+BuildRequires:  colord-devel
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %{gdk_pixbuf_version}
