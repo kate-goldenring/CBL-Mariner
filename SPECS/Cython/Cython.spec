@@ -1,52 +1,36 @@
 %global upname cython
 Name:           Cython
-Version:        0.29.13
-Release:        7%{?dist}
-Summary:        Language for writing Python extension modules
-Vendor:         Microsoft
+Version:        0.29.26
+Release:        1%{?dist}
+Summary:        Language for writing Python 3 extension modules
+Vendor:         Microsoft Corporation
 Distribution:   Mariner
 License:        ASL 2.0
 URL:            https://www.cython.org
-#Source0:       https://github.com/%{upname}/%{upname}/archive/%{version}.tar.gz
-Source0:        %{name}-%{version}.tar.gz
-Patch0:         cython-py38.patch
-
+Source0:        https://github.com/%{upname}/%{upname}/releases/download/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-xml
+Provides:       python3-%{name} = %{version}-%{release}
 
-%global _description \
-Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (baded on Pyrex). It makes writing C extensions for Python as easy as Python itself.}
-
-%description %{_description}
-
-%package -n python3-%{name}
-Summary:       C extensions for Python 3
-%{?python_provide:%python_provide python3-%{name}}
-Provides:       %{name} = %{version}-%{release}
-Provides:       %{name}%{?_isa} = %{version}-%{release}
-BuildRequires: python3
-BuildRequires: python3-devel
-BuildRequires: python3-libs
-BuildRequires: python3-xml
-Requires:      python3
-
-%description -n python3-%{name}
-Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.
+%description
+Cython is an optimising static compiler for both the Python programming language
+and the extended Cython programming language (baded on Pyrex). It makes writing
+C extensions for Python as easy as Python itself.
 
 %prep
 %autosetup -p1 -n %{upname}-%{version}
 
 %build
-python3 setup.py build
+%py3_build
 
 %install
+%py3_install
 
-python3 setup.py install --skip-build --root=%{buildroot}
-rm -rf %{buildroot}%{python3_sitelib}/setuptools/tests
+%check
+%python3 runtests.py
 
-%files -n python3-%{name}
+%files
 %license LICENSE.txt COPYING.txt
 %doc *.txt Demos Doc Tools
 %{_bindir}/cython
@@ -59,6 +43,12 @@ rm -rf %{buildroot}%{python3_sitelib}/setuptools/tests
 %{python3_sitearch}/__pycache__/%{upname}.*
 
 %changelog
+* Mon Dec 20 2021 Thomas Crain <thcrain@microsoft.com> - 0.29.26-1
+- Upgrade to latest upstream version, remove obsolete patches
+- Re-add %%check section
+- Package contents of old python3-Cython subpackage in main package
+- Update source URL
+
 * Fri Dec 03 2021 Thomas Crain <thcrain@microsoft.com> - 0.29.13-7
 - Add upstream patch to enable generating code for Python >= 3.8
 - License verified
