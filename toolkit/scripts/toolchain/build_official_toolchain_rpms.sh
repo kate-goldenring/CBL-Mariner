@@ -147,7 +147,7 @@ chroot_and_run_rpmbuild () {
         PS1='\u:\w\$ '                     \
         PATH=/bin:/usr/bin:/sbin:/usr/sbin \
         SHELL=/bin/bash                    \
-        rpmbuild --nodeps --rebuild --clean     \
+        rpmbuild --nodeps --rebuild --clean --rpmfcdebug    \
             $CHECK_SETTING                 \
             --define "with_check 1" --define "dist $PARAM_DIST_TAG" --define "mariner_build_number $PARAM_BUILD_NUM" \
             --define "mariner_release_version $PARAM_RELEASE_VER" $TOPDIR/SRPMS/$1 \

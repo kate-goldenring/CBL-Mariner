@@ -1,0 +1,7 @@
+[2.0.20220112-main-157777-repo]
+name=2.0.20220112-main-157777 Dev Repo
+baseurl=https://cblmarinerdevrepo.blob.core.windows.net/2020220112-main-157777/RPMS
+enabled=1
+gpgcheck=0
+sslverify=1
+# Repofile installed from build 2.0.20220112-main-157777
