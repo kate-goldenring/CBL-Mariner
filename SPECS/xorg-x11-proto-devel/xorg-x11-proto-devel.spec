@@ -19,33 +19,6 @@ BuildRequires:  libtool
 BuildRequires:  pkg-config
 BuildRequires:  xorg-x11-util-macros
 
-Provides:       pkgconfig(bigreqsproto) = %{version}-%{release}
-Provides:       pkgconfig(compositeproto) = %{version}-%{release}
-Provides:       pkgconfig(damageproto) = %{version}-%{release}
-Provides:       pkgconfig(dmxproto) = %{version}-%{release}
-Provides:       pkgconfig(dri2proto) = %{version}-%{release}
-Provides:       pkgconfig(dri3proto) = %{version}-%{release}
-Provides:       pkgconfig(fixesproto) = %{version}-%{release}
-Provides:       pkgconfig(fontsproto) = %{version}-%{release}
-Provides:       pkgconfig(glproto) = %{version}-%{release}
-Provides:       pkgconfig(inputproto) = %{version}-%{release}
-Provides:       pkgconfig(kbproto) = %{version}-%{release}
-Provides:       pkgconfig(presentproto) = %{version}-%{release}
-Provides:       pkgconfig(randrproto) = %{version}-%{release}
-Provides:       pkgconfig(recordproto) = %{version}-%{release}
-Provides:       pkgconfig(renderproto) = %{version}-%{release}
-Provides:       pkgconfig(resourceproto) = %{version}-%{release}
-Provides:       pkgconfig(scrnsaverproto) = %{version}-%{release}
-Provides:       pkgconfig(videoproto) = %{version}-%{release}
-Provides:       pkgconfig(xcmiscproto) = %{version}-%{release}
-Provides:       pkgconfig(xextproto) = %{version}-%{release}
-Provides:       pkgconfig(xf86bigfontproto) = %{version}-%{release}
-Provides:       pkgconfig(xf86dgaproto) = %{version}-%{release}
-Provides:       pkgconfig(xf86driproto) = %{version}-%{release}
-Provides:       pkgconfig(xf86vidmodeproto) = %{version}-%{release}
-Provides:       pkgconfig(xineramaproto) = %{version}-%{release}
-Provides:       pkgconfig(xproto) = %{version}-%{release}
-
 %description
 X.Org X11 Protocol headers
 

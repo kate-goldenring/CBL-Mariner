@@ -2,7 +2,7 @@
 Summary:        A portable, high level programming interface to various calling conventions
 Name:           sqlite
 Version:        3.34.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Public Domain
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -11,26 +11,26 @@ URL:            https://www.sqlite.org
 Source0:        https://www.sqlite.org/2021/%{name}-autoconf-%{sourcever}.tar.gz
 # CVE-2015-3717 applies to versions shipped in iOS and OS X
 Patch0:         CVE-2015-3717.nopatch
-Requires:       sqlite-libs = %{version}-%{release}
-Provides:       sqlite3
+Requires:       %{name}-libs = %{version}-%{release}
+Provides:       sqlite3 = %{version}-%{release}
 
 %description
 This package contains most of the static files that comprise the
 www.sqlite.org website including all of the SQL Syntax and the
 C/C++ interface specs and other miscellaneous documentation.
 
-%package devel
+%package        devel
 Summary:        sqlite3 link library & header files
 Group:          Development/Libraries
-# Requires:       %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
 %description    devel
 The sqlite devel package include the needed library link and
 header files for development.
 
-%package libs
+%package        libs
 Summary:        sqlite3 library
 Group:          Libraries
-Provides:       pkgconfig(sqlite3)
 
 %description libs
 The sqlite3 library.
@@ -47,22 +47,20 @@ The sqlite3 library.
     -DSQLITE_ENABLE_UNLOCK_NOTIFY=1     \
     -DSQLITE_SECURE_DELETE=1"           \
     --disable-static
-make
+%make_build
 
 %install
-[ %{buildroot} != "/"] && rm -rf %{buildroot}/*
-make DESTDIR=%{buildroot} install
+%make_install
 install -D -m644 sqlite3.1 %{buildroot}/%{_mandir}/man1/sqlite3.1
 find %{buildroot} -type f -name "*.la" -delete -print
 rm -rf %{buildroot}/%{_infodir}
 %{_fixperms} %{buildroot}/*
 
 %check
-make %{?_smp_mflags} check
+%make_build check
 
 %postun devel -p /sbin/ldconfig
-%post libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%ldconfig_scriptlets libs
 
 %files
 %defattr(-,root,root)
@@ -73,15 +71,19 @@ make %{?_smp_mflags} check
 %files devel
 %defattr(-,root,root)
 %{_libdir}/libsqlite3.so
-%{_libdir}/libsqlite3.so.0
 %{_libdir}/pkgconfig/*
 %{_includedir}/*
 
 %files libs
 %defattr(-,root,root)
-%{_libdir}/libsqlite3.so.0.8.6
+%{_libdir}/libsqlite3.so.0*
 
 %changelog
+* Fri Jan 14 2022 Thomas Crain <thcrain@microsoft.com> - 3.34.1-3
+- Remove faulty pkgconfig(sqlite) provides from libs subpackage
+- Move libsqlite3.so.0 to the libs subpackage
+- Lint spec
+
 * Thu Dec 16 2021 Pawel Winogrodzki <pawelwi@microsoft.com> - 3.34.1-2
 - Removing the explicit %%clean stage.
 - License verified.

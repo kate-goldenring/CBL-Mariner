@@ -108,8 +108,8 @@ find %{buildroot} -type f -name "*.la" -delete -print
 * Tue Mar 16 2021 Henry Li <lihl@microsoft.com> - 0.34.6-3
 - Add necessary files to vala package
 
-*   Sat May 09 2020 Nick Samson <nisamson@microsoft.com> 0.34.6-2
--   Added %%license line automatically
+* Sat May 09 2020 Nick Samson <nisamson@microsoft.com> - 0.34.6-2
+- Added %%license line automatically
 
-*	Mon Apr 06 2020 Pawel Winogrodzki <pawelwi@microsoft.com> 0.34.6-1
--	Original version for CBL-Mariner.
+* Mon Apr 06 2020 Pawel Winogrodzki <pawelwi@microsoft.com> - 0.34.6-1
+- Original version for CBL-Mariner.

@@ -12,7 +12,6 @@ BuildRequires:  freetype-devel
 BuildRequires:  libxml2
 BuildRequires:  expat-devel
 BuildRequires:  gperf
-Provides:       pkgconfig(fontconfig)
 
 %description
 Fontconfig can discover new fonts when installed automatically, removing a common source of configuration problems, perform font name substitution, so that appropriate alternative fonts can be selected if fonts are missing, identify the set of fonts required to completely cover a set of languages.

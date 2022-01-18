@@ -21,7 +21,6 @@ Summary:        Libraries and headers for the D-Bus GLib bindings
 Requires:       %{name} = %{version}
 Requires:       dbus-devel
 Requires:       glib-devel
-Provides:       pkgconfig(dbus-glib-1)
 
 %description devel
 Headers and static libraries for the D-Bus GLib bindings

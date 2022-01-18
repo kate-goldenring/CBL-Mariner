@@ -1,7 +1,7 @@
 Summary:        A 2D graphics library.
 Name:           cairo
 Version:        1.17.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPLv2 OR MPLv1.1
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
@@ -122,7 +122,7 @@ rm -rf %{buildroot}%{_datadir}/gtk-doc
 %dir %{_includedir}/%{name}
 %{_includedir}/%{name}/*
 %{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/cairo.pc
 
 %files gobject
 %{_libdir}/libcairo-gobject.so.*
@@ -138,6 +138,9 @@ rm -rf %{buildroot}%{_datadir}/gtk-doc
 %{_libdir}/%{name}/
 
 %changelog
+* Fri Jan 14 2022 Thomas Crain <thcrain@microsoft.com> - 1.17.4-4
+- Fix double packaging of cairo-gobject.pc- now it only resides in the gobject-devel subpackage
+
 * Wed Oct 06 2021 Pawel Winogrodzki <pawelwi@microsoft.com> - 1.17.4-3
 - Adding X components from "UI-cairo".
 - Adding the "tools" subpackage.

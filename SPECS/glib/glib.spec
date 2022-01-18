@@ -46,13 +46,6 @@ Requires:       python3-xml
 Requires:       python3
 Provides:       glib2-devel = %{version}-%{release}
 Provides:       glib2-devel%{?_isa} = %{version}-%{release}
-Provides:       pkgconfig(glib-2.0)
-Provides:       pkgconfig(gmodule-2.0)
-Provides:       pkgconfig(gmodule-no-export-2.0)
-Provides:       pkgconfig(gobject-2.0)
-Provides:       pkgconfig(gio-2.0)
-Provides:       pkgconfig(gio-unix-2.0)
-Provides:       pkgconfig(gthread-2.0)
 
 %description devel
 Static libraries and header files for the support library for the glib library
