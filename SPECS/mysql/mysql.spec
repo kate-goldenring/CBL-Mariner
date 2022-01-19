@@ -1,24 +1,31 @@
 Summary:        MySQL.
 Name:           mysql
-Version:        8.0.24
+Version:        8.0.28
 Release:        1%{?dist}
 License:        GPLv2 with exceptions AND LGPLv2 AND BSD
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Group:          Applications/Databases
 URL:            https://www.mysql.com
+# Note that the community download page is here: https://dev.mysql.com/downloads/mysql/
 Source0:        https://dev.mysql.com/get/Downloads/MySQL-8.0/%{name}-boost-%{version}.tar.gz
-Patch0:         CVE-2012-5627.nopatch
 BuildRequires:  cmake
 BuildRequires:  libtirpc-devel
 BuildRequires:  openssl-devel
 BuildRequires:  rpcsvc-proto-devel
+BuildRequires:  tzdata
 BuildRequires:  zlib-devel
+%if %{with_check}
+BuildRequires:  net-tools
+BuildRequires:  sudo
+BuildRequires:  shadow-utils
+%endif
+Requires:       tzdata
 
 %description
 MySQL is a free, widely used SQL engine. It can be used as a fast database as well as a rock-solid DBMS using a modular engine architecture.
 
-%package devel
+%package        devel
 Summary:        Development headers for mysql
 Requires:       %{name} = %{version}-%{release}
 
@@ -41,14 +48,16 @@ cmake . \
       -DCMAKE_CXX_FLAGS=-fPIC \
       -DWITH_EMBEDDED_SERVER=OFF \
       -DFORCE_INSOURCE_BUILD=1
-
-make %{?_smp_mflags}
+%make_build
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 
 %check
-make test
+# Test suite has multiple failures when run as root
+chmod g+w . -R
+useradd test -G root -m
+sudo -u test %make_build CTEST_OUTPUT_ON_FAILURE=1 test
 
 %files
 %defattr(-,root,root)
@@ -68,6 +77,7 @@ make test
 %exclude %{_prefix}/docs
 %exclude %{_datadir}
 %exclude %{_prefix}/*.router
+%exclude %{_libdir}/private/icudt69l/*
 
 %files devel
 %{_libdir}/*.so
@@ -76,6 +86,20 @@ make test
 %{_libdir}/pkgconfig/mysqlclient.pc
 
 %changelog
+* Tue Jan 18 2022 Max Brodeur-Urbas <maxbr@microsoft.com> - 8.0.28-1
+- Upgrade to 8.0.28
+
+* Sat Oct 30 2021 Jon Slobodzian <joslobo@microsoft.com> - 8.0.27-1
+- Upgrade to 8.0.27 to fix 36 CVEs
+
+* Mon Aug 30 2021 Thomas Crain <thcrain@microsoft.com> - 8.0.26-2
+- Fix majority of package test failures by adding necessary requirements and running tests as non-root
+- Add missing tzdata runtime requirement
+- Add better log outputs for failed %%check tests
+
+* Tue Jul 27 2021 Thomas Crain <thcrain@microsoft.com> - 8.0.26-1
+- Upgrade to 8.0.26 to fix 31 CVEs
+
 * Sat Apr 24 2021 Thomas Crain <thcrain@microsoft.com> - 8.0.24-1
 - Upgrade to 8.0.24 to fix 30 CVEs
 - Update source URL
