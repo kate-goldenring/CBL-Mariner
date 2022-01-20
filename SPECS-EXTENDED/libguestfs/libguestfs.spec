@@ -1230,6 +1230,7 @@ rm ocaml/html/.gitignore
 - Remove Fedora-specific comments/macros
 - Remove link to highjacked upstream bug tracker
 - Conditionally include PHP deps (off by default)
+- License verified
 
 * Thu Sep 30 2021 Thomas Crain <thcrain@microsoft.com> - 1.44.0-2
 - Initial CBL-Mariner import from Fedora 33 (license: MIT).
