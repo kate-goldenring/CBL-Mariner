@@ -90,6 +90,7 @@ ln -s fsck.hfsplus.8 fsck.hfs.8
 %changelog
 * Tue Jan 18 2022 Thomas Crain <thcrain@microsoft.com> - 540.1.linux3-21
 - Add BR on systemd-devel
+- License verified
 
 * Fri Oct 15 2021 Pawel Winogrodzki <pawelwi@microsoft.com> - 540.1.linux3-20
 - Initial CBL-Mariner import from Fedora 32 (license: MIT).
