@@ -36,12 +36,13 @@ Distribution:   Mariner
 # Unbreak the linker.
 %undefine _strict_symbol_defs_build
 
-%bcond_with applicances
+%bcond_without applicances
+%bcond_with php
 
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Version:       1.44.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPLv2+
 
 # Source and patches.
@@ -144,7 +145,9 @@ BuildRequires: rubygem(json)
 BuildRequires: rubygem(rdoc)
 BuildRequires: rubygem(test-unit)
 BuildRequires: rubygem(irb)
+%if %{with php}
 BuildRequires: php-devel
+%endif
 BuildRequires: gobject-introspection-devel
 #BuildRequires: gjs
 BuildRequires: vala
@@ -157,24 +160,19 @@ BuildRequires: golang
 # Get the initial list by doing:
 #   for f in `cat appliance/packagelist`; do echo $f; done | sort -u
 # However you have to edit the list down to packages which exist in
-# current Fedora, since supermin ignores non-existent packages.
+# current Mariner, since supermin ignores non-existent packages.
 
 BuildRequires: acl
 BuildRequires: attr
 BuildRequires: augeas-libs
 BuildRequires: bash
 BuildRequires: binutils
-%if !0%{?rhel}
 BuildRequires: btrfs-progs
-%endif
 BuildRequires: bzip2
 BuildRequires: coreutils
 BuildRequires: cpio
 BuildRequires: cryptsetup
 BuildRequires: curl
-%if !0%{?rhel}
-#BuildRequires: debootstrap
-%endif
 BuildRequires: dhclient
 BuildRequires: diffutils
 BuildRequires: dosfstools
@@ -236,7 +234,6 @@ BuildRequires: xz
 BuildRequires: yajl
 BuildRequires: zerofree
 %ifnarch aarch64
-# http://zfs-fuse.net/issues/94
 BuildRequires: zfs-fuse
 %endif
 
@@ -290,10 +287,6 @@ Requires:      edk2-aarch64
 
 # https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
 Provides:      bundled(gnulib)
-
-# Someone managed to install libguestfs-winsupport (from RHEL!) on
-# Fedora, which breaks everything.  Thus:
-Conflicts:     libguestfs-winsupport
 
 
 
@@ -701,7 +694,7 @@ Provides:      ruby(guestfs) = %{version}
 %description -n ruby-%{name}
 ruby-%{name} contains Ruby bindings for %{name}.
 
-
+%if %{with php}
 %package -n php-%{name}
 Summary:       PHP bindings for %{name}
 Requires:      %{name}%{?_isa} = %{version}-%{release}
@@ -710,7 +703,7 @@ Requires:	php(api) = %{php_core_api}
 
 %description -n php-%{name}
 php-%{name} contains PHP bindings for %{name}.
-
+%endif
 
 %package -n lua-guestfs
 Summary:       Lua bindings for %{name}
@@ -815,7 +808,9 @@ sed 's/@VERSION@/%{version}/g' < %{SOURCE4} > README
   PYTHON=%{__python3} \
   --with-default-backend=libvirt \
   --with-qemu="qemu-system-%{_build_arch} qemu" \
+%if %{without php}
   --disable-php \
+%endif
 %ifnarch %{golang_arches}
   --disable-golang \
 %endif
@@ -1173,12 +1168,13 @@ rm ocaml/html/.gitignore
 %{ruby_vendorarchdir}/_guestfs.so
 %{_mandir}/man3/guestfs-ruby.3*
 
-# Temporarily disabled by Fedora
-#%files -n php-%{name}
-#%doc php/README-PHP
-#%dir %{_sysconfdir}/php.d
-#%{_sysconfdir}/php.d/guestfs_php.ini
-#%{_libdir}/php/modules/guestfs_php.so
+%if %{with php}
+%files -n php-%{name}
+%doc php/README-PHP
+%dir %{_sysconfdir}/php.d
+%{_sysconfdir}/php.d/guestfs_php.ini
+%{_libdir}/php/modules/guestfs_php.so
+%endif
 
 
 %files -n lua-guestfs
@@ -1230,6 +1226,11 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Jan 18 2022 Thomas Crain <thcrain@microsoft.com> - 1.44.0-3
+- Remove Fedora-specific comments/macros
+- Remove link to highjacked upstream bug tracker
+- Conditionally include PHP deps (off by default)
+
 * Thu Sep 30 2021 Thomas Crain <thcrain@microsoft.com> - 1.44.0-2
 - Initial CBL-Mariner import from Fedora 33 (license: MIT).
 - Remove epoch
