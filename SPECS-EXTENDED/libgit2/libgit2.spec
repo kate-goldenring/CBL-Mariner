@@ -1,15 +1,12 @@
 Vendor:         Microsoft Corporation
 Distribution:   Mariner
 Name:           libgit2
-Version:        1.0.1
-Release:        4%{?dist}
+Version:        1.1.0
+Release:        5%{?dist}
 Summary:        C implementation of the Git core methods as a library with a solid API
 License:        GPLv2 with exceptions
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/extrawurst/gitui/issues/128
-# https://github.com/libgit2/libgit2/commit/d62e44cb8218840a0291fb5fbb7c5106e1e35a12
-Patch0001:      0001-checkout-Fix-removing-untracked-files-by-path-in-sub.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
@@ -79,11 +76,28 @@ rm -vr deps
 %{_includedir}/git2/
 
 %changelog
-* Mon Nov 01 2021 Muhammad Falak <mwani@microsft.com> - 1.0.1-4
+* Tue Jan 25 2022 Kate Goldenring <kagold@microsoft.com> 1.1.0-1
+- Initial CBL-Mariner import from Fedora 35 (license: MIT).
+- Always use libssh2
 - Remove epoch
 
-* Fri Oct 15 2021 Pawel Winogrodzki <pawelwi@microsoft.com> - 1.0.1-3
-- Initial CBL-Mariner import from Fedora 32 (license: MIT).
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Thu Mar 18 2021 Kamil Dudka <kdudka@redhat.com> - 1.1.0-4
+- make the run-time dependency on libssh2 optional
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Dec 28 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 1.1.0-2
+- Rebuild
+
+* Mon Dec 28 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Mon Jun 15 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 1.0.1-2
 - Fix removing untracked files by path in subdirectories
